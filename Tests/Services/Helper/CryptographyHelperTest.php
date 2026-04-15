@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @package     Cryptography
  * @since       22.09.2022 - 14:07
+ *
  * @author      Patrick Froch <info@easySolutionsIT.de>
+ *
  * @see         http://easySolutionsIT.de
+ *
  * @copyright   e@sy Solutions IT 2022
- * @license     EULA
  */
 
 declare(strict_types=1);
@@ -26,7 +27,7 @@ class CryptographyHelperTest extends TestCase
         $value      = 'My secret test sting';
         $helper     = new CryptographyHelper('rCmXP3fLTRtqPKvszRNkTRFT', 'aes-256-cbc');
         $encrypted  = $helper->encrypt($value);
-        self::assertSame($value, $helper->decrypt($encrypted));
+        $this->assertSame($value, $helper->decrypt($encrypted));
 
     }
 

@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @package     cryptography
  * @since       19.09.2022 - 20:09
+ *
  * @author      Patrick Froch <info@easySolutionsIT.de>
+ *
  * @see         http://easySolutionsIT.de
+ *
  * @copyright   e@sy Solutions IT 2022
- * @license     EULA
  */
 
 declare(strict_types=1);
@@ -24,6 +25,7 @@ class Plugin implements BundlePluginInterface
 {
     /**
      * @param ParserInterface $parser
+     *
      * @return array|ConfigInterface[]
      */
     public function getBundles(ParserInterface $parser): array

@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @package     Cryptography
  * @since       22.09.2022 - 13:37
+ *
  * @author      Patrick Froch <info@easySolutionsIT.de>
+ *
  * @see         http://easySolutionsIT.de
+ *
  * @copyright   e@sy Solutions IT 2022
- * @license     EULA
  */
 
 declare(strict_types=1);
@@ -19,6 +20,7 @@ class CryptographyHelper
 {
     /**
      * Passwort für die Verschlüsselung.
+     *
      * @var string
      */
     private string $secret;
@@ -26,6 +28,7 @@ class CryptographyHelper
 
     /**
      * Verschlüselungsmethode
+     *
      * @var string
      */
     private string $cipher;
@@ -51,8 +54,49 @@ class CryptographyHelper
 
 
     /**
+     * Verschlüsselt einen String.
+     *
+     * @param string $data
+     * @param string $secret
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function encrypt(string $data, string $secret = ''): string
+    {
+        $key        = $this->getKey($secret);
+        $iv         = $this->getIv();
+        $ciphertext = (string) \openssl_encrypt($data, $this->cipher, $key, OPENSSL_RAW_DATA, $iv);
+
+        return \base64_encode($ciphertext) . ':' . \base64_encode($iv);
+    }
+
+
+    /**
+     * Entschlüsselt einen String.
+     *
+     * @param string $data
+     * @param string $secret
+     *
+     * @return string
+     */
+    public function decrypt(string $data, string $secret = ''): string
+    {
+        $key       = $this->getKey($secret);
+        $dataarray = \explode(':', $data);
+        $encrypted = (string) \base64_decode($dataarray[0], true);
+        $iv        = (string) \base64_decode($dataarray[1], true);
+
+        return (string) \openssl_decrypt($encrypted, $this->cipher, $key, OPENSSL_RAW_DATA, $iv);
+    }
+
+
+    /**
      * Gibt den aus dem Passwort erzeugten Schlüssel zurück.
-     * @param  string $secret
+     *
+     * @param string $secret
+     *
      * @return string
      */
     private function getKey(string $secret): string
@@ -65,8 +109,10 @@ class CryptographyHelper
 
     /**
      * Gibt den Initialisierungsvektor zurück.
-     * @throws \Exception
+     *
      * @return string
+     *
+     * @throws \Exception
      */
     private function getIv(): string
     {
@@ -74,39 +120,5 @@ class CryptographyHelper
         $length = $length > 0 ? $length : 16;
 
         return \random_bytes($length);
-    }
-
-
-    /**
-     * Verschlüsselt einen String.
-     * @param string $data
-     * @param string $secret
-     * @return string
-     * @throws \Exception
-     */
-    public function encrypt(string $data, string $secret = ''): string
-    {
-        $key        = $this->getKey($secret);
-        $iv         = $this->getIv();
-        $ciphertext = (string)\openssl_encrypt($data, $this->cipher, $key, \OPENSSL_RAW_DATA, $iv);
-
-        return \base64_encode($ciphertext) . ':' . \base64_encode($iv);
-    }
-
-
-    /**
-     * Entschlüsselt einen String.
-     * @param string $data
-     * @param string $secret
-     * @return string
-     */
-    public function decrypt(string $data, string $secret = ''): string
-    {
-        $key       = $this->getKey($secret);
-        $dataarray = \explode(':', $data);
-        $encrypted = (string)\base64_decode($dataarray[0], true);
-        $iv        = (string)\base64_decode($dataarray[1], true);
-
-        return (string)\openssl_decrypt($encrypted, $this->cipher, $key, \OPENSSL_RAW_DATA, $iv);
     }
 }

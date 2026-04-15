@@ -7,7 +7,6 @@
  * @author      Patrick Froch <info@easySolutionsIT.de>
  * @link        http://easySolutionsIT.de
  * @copyright   e@sy Solutions IT 2022
- * @license     EULA
  */
 namespace Esit\Cryptography;
 

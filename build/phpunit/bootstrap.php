@@ -3,7 +3,6 @@
  * @author      pfroch <info@easySolutionsIT.de>
  * @link        http://easySolutionsIT.de
  * @copyright   e@sy Solutions IT 2014
- * @license     EULA
  * @package     esitlib
  * @filesource  bootstrap.php
  * @version     2.0.0
