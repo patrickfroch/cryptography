@@ -4,19 +4,16 @@
          backupGlobals="false"
          colors="true"
          bootstrap="bootstrap.php"
+         convertDeprecationsToExceptions="false"
 >
-    <!-- Source -->
-    <source>
+    <!-- Coverage -->
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">../../Classes/</directory>
         </include>
         <exclude>
             <directory>../../Classes/Contao/</directory>
         </exclude>
-    </source>
-
-    <!-- Coverage -->
-    <coverage>
         <report>
             <html outputDirectory="/tmp/coverage" lowUpperBound="35" highLowerBound="70"/>
             <text outputFile="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
